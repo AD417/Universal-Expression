@@ -1,0 +1,80 @@
+* { 
+    color: white;
+    background-color: black;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.tab {
+    padding: 0.5rem;
+    font-size: 24px;
+    border: 0.2rem solid white;
+    color: red
+}
+
+.fadeIn {
+    opacity: 1;
+    animation: fadeIn 0.2s linear;
+}
+
+.tile {
+    border: 0.5rem solid rgb(0, 127, 255);
+    margin: 2%;
+    padding: 1.5rem;
+    border-radius: 5%;
+    display: inline-flex;
+    width: 25%;
+    height: 80%;
+    justify-content: center;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        box-shadow: 0 0 20px white;
+    }
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 0 white;
+    }
+}
+
+.time {
+    border-color: cyan;
+}
+.time * {
+    color: cyan;
+}
+
+.space {
+    border-color: blue;
+}
+.space * {
+    color: blue;
+}
+
+.spaceTime {
+    border-color: cyan;
+    animation: fadeIn 0.5s linear, cyanBlue 10s infinite linear ; /* aww piss off, multiple animations */
+}
+.spaceTime * {
+    color: rgb(0, 255, 255);
+    animation: cyanBlue 10s infinite linear;
+}
+@keyframes cyanBlue {
+    0%, 100% { border-color: cyan; color: cyan;}
+    50% { border-color: blue; color: blue;}
+}
+
+span {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.option {
+    min-width: 15rem;
+    max-width: 30%;
+    height: 4rem;
+    padding: 0.5rem;
+    border: 0.25rem solid red;
+    border-radius: 10%
+}

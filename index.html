@@ -1,0 +1,43 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Atomic Incremental</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body onload = "load()">
+  <div class="tabs">
+    <button class="tab" onclick="tab(1)" onload="tab(1)">Main</button>
+    <button class="tab" onclick="tab(2)">Options</button>
+    <button class="tab" onclick="tab(3)">Statistics</button>
+  </div>
+
+  <div id="Main" class="tabcontent">
+    <h3>Hello there!</h3>
+    <div class="time fadeIn tile">
+      <p>You have <span id="time">0</span> Time.</p>
+    </div>
+
+    <div class="spaceTime fadeIn tile"> <!--Can't have 2 animations on one div, bummer-->
+      <p>You have <span id="spaceTime">0</span> Spacetime.</p>
+    </div>
+
+    <div class="space fadeIn tile">
+      <p>You have <span id="space">0</span> Space.</p>
+    </div>
+  </div>
+      
+  <div id="Options" class="tabcontent">
+    <h3>Options</h3>
+    <button class="fadeIn option" onclick="reset()"> RESET THE GAME</button>
+    <button class="fadeIn option" onclick="save()">Save Game</button>
+  </div>
+
+  <div id="Statistics" class="tabcontent">
+    <h3>Stats</h3>
+    <p>Time played: 0</p>
+  </div>
+
+    
+  <script src="script.js"></script>
+</body>
+</html>
