@@ -3,13 +3,21 @@
     background-color: black;
     box-sizing: border-box;
     text-align: center;
+    font-family: sans-serif;
+}
+body {
+    overflow-x: auto;
+    max-width: 100%
 }
 
 .tab {
     padding: 0.5rem;
-    font-size: 24px;
-    border: 0.2rem solid white;
-    color: red
+    font-size: 1.5rem;
+    border: 0.2rem solid rgb(128, 128, 128);
+    color: rgb(180, 180, 180)
+}
+.tabcontent {
+    white-space: nowrap;
 }
 
 .fadeIn {
@@ -18,24 +26,34 @@
 }
 
 .tile {
-    border: 0.5rem solid rgb(0, 127, 255);
-    margin: 2%;
-    padding: 1.5rem;
+    /*border: 0.5rem solid rgb(0, 127, 255);
+    margin: 2%;*/
+    padding: 1rem;
     border-radius: 5%;
     display: inline-flex;
-    width: 25%;
+    width: 30%;
+    min-width: 30rem;
     height: 80%;
-    justify-content: center;
+    flex-direction: column;
 }
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        box-shadow: 0 0 20px white;
     }
     100% {
         opacity: 1;
-        box-shadow: 0 0 0 white;
     }
+}
+
+.tileUpg {
+    width: 50%;
+    align-self: center;
+    height: 10rem;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    border: 0.25rem solid;
+    border-radius: 20%;
 }
 
 .time {
@@ -51,21 +69,44 @@
 .space * {
     color: blue;
 }
+td {
+    padding: 1rem 0;
+}
+.tableUpg {
+    width: 90%;
+    height: auto;
+    border: 0.25rem solid;
+    border-radius: 5%;
+}
+
 
 .spaceTime {
     border-color: cyan;
-    animation: fadeIn 0.5s linear, cyanBlue 10s infinite linear ; /* aww piss off, multiple animations */
+    animation: fadeIn 0.5s linear, cyanBlue 20s infinite ease-in-out; /* aww piss off, multiple animations */
 }
 .spaceTime * {
     color: rgb(0, 255, 255);
-    animation: cyanBlue 10s infinite linear;
+    animation: cyanBlue 20s infinite ease-in-out;
 }
 @keyframes cyanBlue {
     0%, 100% { border-color: cyan; color: cyan;}
     50% { border-color: blue; color: blue;}
 }
 
-span {
+.matter {
+    border-color: rgb(0, 128, 0);
+    color: rgb(0, 192, 0);
+    animation: fadeIn 0.2s linear
+}
+.matter * {
+    color:rgb(0, 192, 0);
+}
+
+
+
+
+
+span.important {
     font-size: 30px;
     font-weight: bolder;
 }

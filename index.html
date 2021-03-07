@@ -6,38 +6,94 @@
 </head>
 <body onload = "load()">
   <div class="tabs">
-    <button class="tab" onclick="tab(1)" onload="tab(1)">Main</button>
-    <button class="tab" onclick="tab(2)">Options</button>
-    <button class="tab" onclick="tab(3)">Statistics</button>
+    <button class="tab spaceTime" onclick="tab(1)" onload="tab(1)">Spacetime</button>
+    <button class="tab matter" onclick="tab(2)">Matter</button>
+    <button class="tab fadeIn" onclick="tab(3)">Options</button>
+    <button class="tab fadeIn" onclick="tab(4)">Statistics</button>
   </div>
 
-  <div id="Main" class="tabcontent">
-    <h3>Hello there!</h3>
-    <div class="time fadeIn tile">
-      <p>You have <span id="time">0</span> Time.</p>
+  <div id="Main" class="tabcontent fadeIn">
+    <div class="time tile">
+      <p>
+        There is <span id="time" class="important">X</span> Time.<br>
+        Currently, <span id="timePerSecond">X</span> time passes per second.
+      </p>
+      <button class="time tileUpg" onclick="upgTime()">
+        Increase time speed <br>
+        Needs: <span id="timeCost">X</span> time
+      </button>
     </div>
 
-    <div class="spaceTime fadeIn tile"> <!--Can't have 2 animations on one div, bummer-->
-      <p>You have <span id="spaceTime">0</span> Spacetime.</p>
+    <div class="spaceTime tile"> <!-- reminder to stop Zing-->
+      <p>There is <span id="spaceTime" class="important">0</span> Spacetime.</p>
     </div>
 
-    <div class="space fadeIn tile">
-      <p>You have <span id="space">0</span> Space.</p>
+    <div class="space tile">
+      <p>
+        There is <span id="space" class="important">0</span> Space<br>
+        <span id="spacePerSecond">X</span> space is made per second.</p>
+      </p>
+      <table class="spaceTable">
+        <tr>
+          <td>
+            1st Dimension <br>
+          </td>
+          <td>   
+            Currently: <span id="spaceDim0">X</span>
+          </td>
+          <td>
+            <button class="space tableUpg" onclick="buySpaceDim(0)">Buy a dimension:<br>
+            Cost: <span id="spaceCost0">X</span> Space</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            2nd Dimension <br>
+          </td>
+          <td>   
+            Currently: <span id="spaceDim1">X</span>
+          </td>
+          <td>
+            <button class="space tableUpg" onclick="buySpaceDim(1)">Buy a dimension:<br>
+            Cost: <span id="spaceCost1">X</span> Space</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            3rd Dimension <br>
+          </td>
+          <td>   
+            Currently: <span id="spaceDim2">X</span>
+          </td>
+          <td>
+            <button class="space tableUpg" onclick="buySpaceDim(2)">Buy a dimension:<br>
+            Cost: <span id="spaceCost2">X</span> Space</button>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
       
-  <div id="Options" class="tabcontent">
-    <h3>Options</h3>
-    <button class="fadeIn option" onclick="reset()"> RESET THE GAME</button>
-    <button class="fadeIn option" onclick="save()">Save Game</button>
+  <div id="Matter" class="tabcontent fadeIn">
+    <h3>TBA</h3>
+    <p>There is <span id="matter">X</span> matter.</p>
   </div>
 
-  <div id="Statistics" class="tabcontent">
+  <div id="Options" class="tabcontent fadeIn">
+    <h3>Options</h3>
+    <button class="option" onclick="reset()"> RESET THE GAME</button>
+    <button class="option" onclick="save()">Save Game</button>
+  </div>
+
+  <div id="Statistics" class="tabcontent fadeIn">
     <h3>Stats</h3>
     <p>Time played: 0</p>
   </div>
 
-    
+
+  <script src="break_infinity.js"></script>
   <script src="script.js"></script>
+  <script src="core/format.js"></script>
+  <script src="core/spaceTime.js"></script>
 </body>
 </html>
