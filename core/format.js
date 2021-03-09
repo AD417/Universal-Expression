@@ -1,7 +1,9 @@
 function formatNumber(value, percision = 3, eMax = 5, eMin = -3,) {
     value = D(value)
-    if (value.e > eMax || value.e < eMin) {
-        return Math.floor(value.m * 10 ** percision) / (10 ** percision) + "e" + value.e
+    if (value.e > eMax || (value.e < eMin && eMin)) {
+        let m = Math.floor(value.m * 10 ** percision) / (10 ** percision) + "0000"
+        m = m.slice(0, percision + 2)
+        return m + "e" + value.e
     } else {
         return Math.floor(value.m * 10 ** value.e) 
     }

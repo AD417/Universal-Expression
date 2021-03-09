@@ -1,9 +1,22 @@
+/* Game mechanics colors, and their CSS equivalents:
+ * Space:      Dodger blue
+ * Time:       cyan
+ * SpaceTime:  fade between blue and cyan
+ * Matter:     Green, maybe lime
+ * Energy:     Orange. May be too bright. 
+ * Light:      Yellow. Almost certainly too bright
+ * Life:       Red. Likely too dark
+ * Creativity: Pink / magenta. May be too bright. 
+*/
+
+
 * { 
     color: white;
     background-color: black;
     box-sizing: border-box;
     text-align: center;
-    font-family: sans-serif;
+    font-family: monospace;
+    outline: none;
 }
 body {
     overflow-x: auto;
@@ -14,7 +27,7 @@ body {
     padding: 0.5rem;
     font-size: 1.5rem;
     border: 0.2rem solid rgb(128, 128, 128);
-    color: rgb(180, 180, 180)
+    color: rgb(192, 192, 192)
 }
 .tabcontent {
     white-space: nowrap;
@@ -32,7 +45,7 @@ body {
     border-radius: 5%;
     display: inline-flex;
     width: 30%;
-    min-width: 30rem;
+    min-width: 25rem;
     height: 80%;
     flex-direction: column;
 }
@@ -64,10 +77,10 @@ body {
 }
 
 .space {
-    border-color: blue;
+    border-color: dodgerblue;
 }
 .space * {
-    color: blue;
+    color: dodgerblue;
 }
 td {
     padding: 1rem 0;
@@ -90,7 +103,7 @@ td {
 }
 @keyframes cyanBlue {
     0%, 100% { border-color: cyan; color: cyan;}
-    50% { border-color: blue; color: blue;}
+    50% { border-color: dodgerblue; color: dodgerblue;}
 }
 
 .matter {

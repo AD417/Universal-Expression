@@ -1,5 +1,5 @@
 //General Data
-let player;
+let player, tmp;
 function D(x) { return new Decimal(x)} //I'm lazy. 
 
 function tab(tabID) {
@@ -28,8 +28,9 @@ function load() {
         newGame()
     }
     //setupGame() //load in everything that is not updated on every tick. 
-    setInterval(() => {loop()}, 50)
-    setInterval(() => {save()}, 10000)
+    setupTemp()
+    setInterval(loop, 50)
+    setInterval(save, 10000)
 }
 
 function decimalify() {
@@ -46,6 +47,7 @@ function decimalify() {
 
 function newGame() {
     player = {
+        firstTick: Date.now(),
         lastTick: Date.now(),
         version: 0.001,
 
@@ -59,10 +61,20 @@ function newGame() {
         STD: D(0), //SpaceTime Difference. When upgrades deduct from SpaceTime. 
 
         space: D(0),
+        totalSpace: D(0),
         spaceGens: [D(1), D(0), D(0),],
         spaceGenCost: [D(10), D(1000), D(1e8)],
 
         testVal: D("1e400")
+    }
+}
+
+function setupTemp() {
+    tmp = {
+        dSpace: D(0),
+
+        spaceTimeLastTick: D(0),
+        dSpaceTime: D(0),
     }
 }
 
@@ -92,4 +104,11 @@ function loop(diff) {
     changeTime(diff)
     changeSpace(diff)
     changeSpaceTime(diff)
+    updateStatistics()
+}
+
+function updateStatistics() {
+    document.getElementById("statTime").innerHTML = display(player.time)
+    document.getElementById("statSpace").innerHTML = display(player.totalSpace)
+    document.getElementById("playtime").innerHTML = display(Math.floor((player.lastTick - player.firstTick) / 1000))
 }

@@ -16,7 +16,7 @@
     <div class="time tile">
       <p>
         There is <span id="time" class="important">X</span> Time.<br>
-        Currently, <span id="timePerSecond">X</span> time passes per second.
+        <span id="timePerSecond">X</span> time passes per second.
       </p>
       <button class="time tileUpg" onclick="upgTime()">
         Increase time speed <br>
@@ -25,7 +25,10 @@
     </div>
 
     <div class="spaceTime tile"> <!-- reminder to stop Zing-->
-      <p>There is <span id="spaceTime" class="important">0</span> Spacetime.</p>
+      <p>
+        There is <span id="spaceTime" class="important">0</span> Spacetime.<br>
+        <span id="spaceTimePerSecond">X</span> spacetime is created per second.
+      </p>
     </div>
 
     <div class="space tile">
@@ -74,7 +77,7 @@
     </div>
   </div>
       
-  <div id="Matter" class="tabcontent fadeIn">
+  <div id="Matter" class="tabcontent fadeIn matter">
     <h3>TBA</h3>
     <p>There is <span id="matter">X</span> matter.</p>
   </div>
@@ -87,8 +90,14 @@
 
   <div id="Statistics" class="tabcontent fadeIn">
     <h3>Stats</h3>
-    <p>Time played: 0</p>
+    <p>Time played: <span id=playtime>X</span></p>
+    <p>
+      <span id="statTime">X</span> time has passed in the Universe <br>
+      <span id="statSpace">X</span> space has been created <br>
+      <span id="statSpaceTime">X</span> spaceTime has existed
+    </p>
   </div>
+
 
 
   <script src="break_infinity.js"></script>
