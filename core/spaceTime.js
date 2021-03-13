@@ -1,8 +1,8 @@
 function changeTime(diff) {
     player.time = player.time.add(player.dTime.times(diff / 1000))
-    document.getElementById("time").innerHTML = display(player.time)
-    document.getElementById("timePerSecond").innerHTML = display(player.dTime) //Does this need to be updated every frame? Eventually, probably.
-    document.getElementById("timeCost").innerHTML = display(player.timeCost)
+    getEl("time").innerHTML = display(player.time)
+    getEl("timePerSecond").innerHTML = display(player.dTime) //Does this need to be updated every frame? Eventually, probably.
+    getEl("timeCost").innerHTML = display(player.timeCost)
 }
 
 function changeSpace(diff) { 
@@ -17,21 +17,21 @@ function changeSpace(diff) {
     }
     player.space = player.space.add(tmp.dSpace)
     player.totalSpace = player.totalSpace.add(tmp.dSpace)
-    document.getElementById("space").innerHTML = display(player.space)
-    document.getElementById("spacePerSecond").innerHTML = display(tmp.dSpace.times(1000 / diff))
+    getEl("space").innerHTML = display(player.space)
+    getEl("spacePerSecond").innerHTML = display(tmp.dSpace.times(1000 / diff))
     for (let i = 0; i <= 2; i++) {  
-        document.getElementById("spaceDim" + i).innerHTML = display(player.spaceGens[i].floor())
-        document.getElementById("spaceCost" + i).innerHTML = display(player.spaceGenCost[i])
+        getEl("spaceDim" + i).innerHTML = display(player.spaceGens[i].floor())
+        getEl("spaceCost" + i).innerHTML = display(player.spaceGenCost[i])
     }
 }
 
 function changeSpaceTime(diff) {
-    let lastTick = player.SpaceTime
-    player.spaceTime = player.space.times(player.time).minus(player.STD).max(0).floor()
+    let lastTick = player.spaceTime
+    player.spaceTime = player.space.times(player.time).minus(player.STD).max(0)//.floor()
     tmp.dSpaceTime = player.spaceTime.minus(lastTick)
 
-    document.getElementById("spaceTime").innerHTML = display(player.spaceTime)
-    document.getElementById("spaceTimePerSecond").innerHTML = display(tmp.dSpaceTime.times(1000 / diff))
+    getEl("spaceTime").innerHTML = display(player.spaceTime)
+    getEl("spaceTimePerSecond").innerHTML = display(tmp.dSpaceTime.times(1000 / diff))
 }
 
 //Buttons and Upgrades: 

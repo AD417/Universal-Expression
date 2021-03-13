@@ -1,6 +1,29 @@
 //General Data
-let player, tmp;
-function D(x) { return new Decimal(x)} //I'm lazy. 
+let player, tmp
+let D = x => new Decimal(x) //I'm lazy. 
+let getEl = x => document.getElementById(x)
+let basePlayer = { 
+    firstTick: Date.now(),
+    lastTick: Date.now(),
+    version: 0.001,
+    stage: 0,
+
+    time: D(0),
+    dTime: D(1),
+    timeBoosts: 0,
+    timeCost: D(10),
+
+    spaceTime: D(0),
+    dSpaceTime: D(0),
+    STD: D(0), //SpaceTime Difference. When upgrades deduct from SpaceTime. 
+
+    space: D(0),
+    totalSpace: D(0),
+    spaceGens: [D(1), D(0), D(0),],
+    spaceGenCost: [D(10), D(1000), D(1e10),],
+
+    testVar: "Anthios"
+}
 
 function tab(tabID) {
     let i, tabcontent, tablinks;
@@ -15,7 +38,7 @@ function tab(tabID) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
   
-    document.getElementById([null, "Main", "Matter", "Options", "Statistics"][tabID]).style.display = "block";
+    getEl([null, "Main", "Matter", "Options", "Statistics"][tabID]).style.display = "block";
 }
 
 function load() {
@@ -23,54 +46,50 @@ function load() {
     let parse = localStorage.getItem("save")
     if (parse !== null) {
         player = JSON.parse(atob(parse))
-        decimalify() //Give everything its code-mandated Break
+        player = check(player, basePlayer)
     } else {
         newGame()
     }
+    player = decimalify(player) //Give everything its code-mandated Break
     //setupGame() //load in everything that is not updated on every tick. 
     setupTemp()
     setInterval(loop, 50)
     setInterval(save, 10000)
 }
 
-function decimalify() {
-    for (value in player) {
-        if (typeof(player[value]) == "object") {
-            for (index in player[value]) {
-                player[value][index] = D(player[value][index])
-            }
-        } else if (typeof(player[value]) == "string") {
-            player[value] = D(player[value])
+function check(val, base) {
+    if (base instanceof Object && !(base instanceof Decimal)) {
+        if (val === undefined) return base
+        let i
+        for (i in base) {
+            val[i] = check(val[i], base[i])
         }
+        return val
+    } else {
+        if (val !== undefined) return val
+        return base
     }
+}
+
+function decimalify(val) {
+    if (val instanceof Object && !(val instanceof Decimal)) {
+        let i;
+        for (i in val) {
+            val[i] = decimalify(val[i])
+        }
+        return val
+    } else if (typeof(val) === "string" && !isNaN(parseInt(val))) {
+        return D(val)
+    }
+    return val
 }
 
 function newGame() {
-    player = {
-        firstTick: Date.now(),
-        lastTick: Date.now(),
-        version: 0.001,
-
-        time: D(0),
-        dTime: D(1),
-        timeBoosts: 0,
-        timeCost: D(10),
-
-        spaceTime: D(0),
-        dSpaceTime: D(0),
-        STD: D(0), //SpaceTime Difference. When upgrades deduct from SpaceTime. 
-
-        space: D(0),
-        totalSpace: D(0),
-        spaceGens: [D(1), D(0), D(0),],
-        spaceGenCost: [D(10), D(1000), D(1e8)],
-
-        testVal: D("1e400")
-    }
+    player = basePlayer
 }
 
 function setupTemp() {
-    tmp = {
+    tmp = { // Do we need this? None of this is actually needed in a tmp variable. 
         dSpace: D(0),
 
         spaceTimeLastTick: D(0),
@@ -108,7 +127,7 @@ function loop(diff) {
 }
 
 function updateStatistics() {
-    document.getElementById("statTime").innerHTML = display(player.time)
-    document.getElementById("statSpace").innerHTML = display(player.totalSpace)
-    document.getElementById("playtime").innerHTML = display(Math.floor((player.lastTick - player.firstTick) / 1000))
+    getEl("statTime").innerHTML = display(player.time)
+    getEl("statSpace").innerHTML = display(player.totalSpace)
+    getEl("playtime").innerHTML = display(Math.floor((player.lastTick - player.firstTick) / 1000))
 }

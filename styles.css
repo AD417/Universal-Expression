@@ -45,7 +45,7 @@ body {
     border-radius: 5%;
     display: inline-flex;
     width: 30%;
-    min-width: 25rem;
+    min-width: 33rem;
     height: 80%;
     flex-direction: column;
 }
@@ -58,6 +58,7 @@ body {
     }
 }
 
+
 .tileUpg {
     width: 50%;
     align-self: center;
@@ -68,12 +69,24 @@ body {
     border: 0.25rem solid;
     border-radius: 20%;
 }
+.upgrade {
+    font-size: 12px;
+    min-width: 10rem;
+    width: 30%;
+    height: 8rem;
+    margin: 0;
+    white-space: initial;
+    vertical-align: top;
+}
 
 .time {
-    border-color: cyan;
+    border-color: mediumpurple;
 }
 .time * {
-    color: cyan;
+    color: mediumpurple;
+}
+.time button, .time button * {
+    background-color: rgb(50, 0, 100);
 }
 
 .space {
@@ -82,7 +95,10 @@ body {
 .space * {
     color: dodgerblue;
 }
-td {
+.space button, .space button * {
+    background-color: rgb(0, 0, 100);
+}
+.spacetable * td {
     padding: 1rem 0;
 }
 .tableUpg {
@@ -102,7 +118,7 @@ td {
     animation: cyanBlue 20s infinite ease-in-out;
 }
 @keyframes cyanBlue {
-    0%, 100% { border-color: cyan; color: cyan;}
+    0%, 100% { border-color: mediumpurple; color: mediumpurple;}
     50% { border-color: dodgerblue; color: dodgerblue;}
 }
 

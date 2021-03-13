@@ -22,13 +22,23 @@
         Increase time speed <br>
         Needs: <span id="timeCost">X</span> time
       </button>
+      <div>
+        <button class="upgrade time">Unlock Space. <br>Needs: 100 Time. </button>
+        <button class="upgrade time">Unlock Spacetime. <br>Needs: 1e10 Time. </button>
+        <button class="upgrade time">Begin creating matter. <br>Needs: 1e20 Time. </button>
+      </div>
     </div>
 
-    <div class="spaceTime tile"> <!-- reminder to stop Zing-->
+    <div class="spaceTime tile">
       <p>
         There is <span id="spaceTime" class="important">0</span> Spacetime.<br>
         <span id="spaceTimePerSecond">X</span> spacetime is created per second.
       </p>
+      <div>
+        <button class="upgrade space">Boost time generation based on ???<br>Cost: 100 Space. </button>
+        <button class="upgrade space">???</button>
+        <button class="upgrade space">???</button>
+      </div>
     </div>
 
     <div class="space tile">
@@ -38,42 +48,35 @@
       </p>
       <table class="spaceTable">
         <tr>
-          <td>
-            1st Dimension <br>
-          </td>
-          <td>   
-            Currently: <span id="spaceDim0">X</span>
-          </td>
+          <td>1st Dimension</td>
+          <td>Currently: <span id="spaceDim0">X</span></td>
           <td>
             <button class="space tableUpg" onclick="buySpaceDim(0)">Buy a dimension:<br>
             Cost: <span id="spaceCost0">X</span> Space</button>
           </td>
         </tr>
         <tr>
-          <td>
-            2nd Dimension <br>
-          </td>
-          <td>   
-            Currently: <span id="spaceDim1">X</span>
-          </td>
+          <td>2nd Dimension</td>
+          <td>Currently: <span id="spaceDim1">X</span></td>
           <td>
             <button class="space tableUpg" onclick="buySpaceDim(1)">Buy a dimension:<br>
             Cost: <span id="spaceCost1">X</span> Space</button>
           </td>
         </tr>
         <tr>
-          <td>
-            3rd Dimension <br>
-          </td>
-          <td>   
-            Currently: <span id="spaceDim2">X</span>
-          </td>
+          <td>3rd Dimension</td>
+          <td>Currently: <span id="spaceDim2">X</span></td>
           <td>
             <button class="space tableUpg" onclick="buySpaceDim(2)">Buy a dimension:<br>
             Cost: <span id="spaceCost2">X</span> Space</button>
           </td>
         </tr>
       </table>
+      <div>
+        <button class="upgrade space">Space boosts time by a small amount <br>Cost: 100 Space. </button>
+        <button class="upgrade space">Time boosts the second dimension. <br>Cost: 1e6 Space. </button>
+        <button class="upgrade space">Space generators make time boosters cheaper. <br>Cost: 1e12 Space. </button>
+      </div>
     </div>
   </div>
       
