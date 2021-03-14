@@ -1,14 +1,20 @@
 /* Game mechanics colors, and their CSS equivalents:
+ * Time:       Purple
  * Space:      Dodger blue
- * Time:       cyan
  * SpaceTime:  fade between blue and cyan
  * Matter:     Green, maybe lime
  * Energy:     Orange. May be too bright. 
  * Light:      Yellow. Almost certainly too bright
  * Life:       Red. Likely too dark
- * Creativity: Pink / magenta. May be too bright. 
+ * Creativity: Pink / magenta. May be too bright. May conflict with Time. 
 */
+:root { /*these are the intended maximum values.*/
+    --space: hsl(200, 100%, 50%);
+    --spaceBack: hsl(240, 100%, 20%);
 
+    --time: hsl(270, 50%, 60%);
+    --timeBack: hsl(270, 100%, 20%);
+}
 
 * { 
     color: white;
@@ -80,23 +86,34 @@ body {
 }
 
 .time {
-    border-color: mediumpurple;
+    border-color: var(--time);
 }
 .time * {
-    color: mediumpurple;
+    color: var(--time);
+    transition-duration: 0.3s;
 }
-.time button, .time button * {
-    background-color: rgb(50, 0, 100);
+.time button.upgBuyable, .time button:hover, .time button:hover * {
+    background-color: var(--timeBack);
+}
+.time button.upgBought {
+    background-color: var(--time);
+    color: var(--timeBack)
 }
 
+
 .space {
-    border-color: dodgerblue;
+    border-color: var(--space);
 }
 .space * {
-    color: dodgerblue;
+    color: var(--space);
+    transition-duration: 0.3s;
 }
-.space button, .space button * {
-    background-color: rgb(0, 0, 100);
+.space button.upgBuyable, .space button:hover, .space button:hover *  {
+    background-color: var(--spaceBack);
+}
+.space button.upgBought {
+    background-color: var(--space);
+    color: var(--spaceBack)
 }
 .spacetable * td {
     padding: 1rem 0;
@@ -108,19 +125,34 @@ body {
     border-radius: 5%;
 }
 
-
 .spaceTime {
-    border-color: cyan;
-    animation: fadeIn 0.5s linear, cyanBlue 20s infinite ease-in-out; /* aww piss off, multiple animations */
+    animation: fadeIn 0.5s linear, PBTrans 20s infinite ease-in-out; 
 }
 .spaceTime * {
-    color: rgb(0, 255, 255);
-    animation: cyanBlue 20s infinite ease-in-out;
+    animation: PBTrans 20s infinite ease-in-out;
+    transition-duration: 0.3s;
 }
-@keyframes cyanBlue {
-    0%, 100% { border-color: mediumpurple; color: mediumpurple;}
-    50% { border-color: dodgerblue; color: dodgerblue;}
+.spaceTime button.upgBuyable, .spaceTime button:hover, .spaceTime button:hover * {
+    animation: PBTrans 20s infinite ease-in-out, PBTransSoft 20s infinite ease-in-out; /* aww piss off, multiple animations */
 }
+.spaceTime button.upgBought {
+    animation: PBTrans 20s infinite ease-in-out, PBTransBought 20s infinite ease-in-out; /* aww piss off, multiple animations */
+}
+
+@keyframes PBTrans {
+    0%, 100% { border-color: var(--time); color: var(--time); }
+    50% { border-color: var(--space); color: var(--space); }
+}
+@keyframes PBTransSoft {
+    0%, 100% { background-color: var(--timeBack); }
+    50% { background-color: var(--spaceBack); }
+}
+@keyframes PBTransBought {
+    0%, 100% { background-color: var(--time); color: var(--spaceBack);}
+    50% { background-color: var(--space); color: var(--timeBack); }
+}
+
+
 
 .matter {
     border-color: rgb(0, 128, 0);

@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Atomic Incremental</title>
+  <title>Universal Expression</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body onload = "load()">
@@ -23,9 +23,12 @@
         Needs: <span id="timeCost">X</span> time
       </button>
       <div>
-        <button class="upgrade time">Unlock Space. <br>Needs: 100 Time. </button>
-        <button class="upgrade time">Unlock Spacetime. <br>Needs: 1e10 Time. </button>
-        <button class="upgrade time">Begin creating matter. <br>Needs: 1e20 Time. </button>
+        <button class="upgrade time" onclick="getUpgrade(0,0)" id="time0">
+          Unlock Space. <br>Needs: 100 Time. </button>
+        <button class="upgrade time" onclick="getUpgrade(0,1)" id="time1">
+          Unlock Spacetime. <br>Needs: 10,000 Time. </button>
+        <button class="upgrade time" onclick="getUpgrade(0,2)" id="time2">
+          Begin creating matter. <br>Needs: 1e20 Time. </button>
       </div>
     </div>
 
@@ -35,9 +38,9 @@
         <span id="spaceTimePerSecond">X</span> spacetime is created per second.
       </p>
       <div>
-        <button class="upgrade space">Boost time generation based on ???<br>Cost: 100 Space. </button>
-        <button class="upgrade space">???</button>
-        <button class="upgrade space">???</button>
+        <button class="upgrade spaceTime" onclick="getUpgrade(2,0)" id="spaceTime0">Boost space and time generation based on Spacetime. <br>Cost: 1e6 Spacetime. </button>
+        <button class="upgrade spaceTime" onclick="getUpgrade(2,1)" id="spaceTime1">???</button>
+        <button class="upgrade spaceTime" onclick="getUpgrade(2,2)" id="spaceTime2">???</button>
       </div>
     </div>
 
@@ -73,9 +76,9 @@
         </tr>
       </table>
       <div>
-        <button class="upgrade space">Space boosts time by a small amount <br>Cost: 100 Space. </button>
-        <button class="upgrade space">Time boosts the second dimension. <br>Cost: 1e6 Space. </button>
-        <button class="upgrade space">Space generators make time boosters cheaper. <br>Cost: 1e12 Space. </button>
+        <button class="upgrade space" onclick="getUpgrade(1,0)" id="space0">Space boosts time by a small amount <br>Cost: 100 Space. </button>
+        <button class="upgrade space" onclick="getUpgrade(1,1)" id="space1">Time boosts the second dimension. <br>Cost: 1e6 Space. </button>
+        <button class="upgrade space" onclick="getUpgrade(1,2)" id="space2">Space generators make time boosters cheaper. <br>Cost: 1e12 Space. </button>
       </div>
     </div>
   </div>
