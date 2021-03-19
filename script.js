@@ -6,7 +6,7 @@ let basePlayer = {
     firstTick: Date.now(),
     lastTick: Date.now(),
     version: 0.001,
-    stage: 0,
+    //stage: 0,
 
     upgrades: {
         time: [false, false, false],
@@ -21,6 +21,7 @@ let basePlayer = {
 
     spaceTime: D(0),
     dSpaceTime: D(0),
+    STTimePenalty: D(0),
     STD: D(0), //SpaceTime Difference. When upgrades deduct from SpaceTime. 
 
     space: D(0),
@@ -59,10 +60,20 @@ function load() {
         newGame();
     }
     player = decimalify(player); //Give everything its code-mandated Break
-    //setupGame() //load in everything that is not updated on every tick. 
+    setup() //load in everything that is not updated on every tick. 
     setupTemp();
     setInterval(loop, 50);
     setInterval(save, 10000);
+}
+
+function setup() {
+    getEl("time").innerHTML = 0
+    getEl("space").innerHTML = 0
+    getEl("spaceTime").innerHTML = 0
+    for (let i; i < 3; i++) {
+        getEl("spaceDim"+i).innerHTML = 0
+    }
+    setUpCanvas()
 }
 
 function check(val, base) {
@@ -94,7 +105,9 @@ function decimalify(val) {
 
 function newGame() {
     basePlayer.lastTick = Date.now();
-    player = basePlayer;
+    basePlayer.firstTick = Date.now()
+    player = decimalify(JSON.parse(JSON.stringify(basePlayer)));
+    setup()
 }
 
 function setupTemp() {
@@ -129,13 +142,16 @@ function loop(diff) {
         diff = Date.now() - player.lastTick;
         player.lastTick += diff;
     }
+    //SpaceTime
     changeTime(diff);
     changeSpace(diff);
     changeSpaceTime(diff);
     updateUpgs();
 
+    //General stuff
     updateStatistics();
     color();
+    updateAnimationData();
 }
 
 function updateStatistics() {
@@ -144,6 +160,21 @@ function updateStatistics() {
     getEl("playtime").innerHTML = display(Math.floor((player.lastTick - player.firstTick) / 1000));
 }
 
+function checkStage(stage) {
+    const STAGESREQ = [
+        player.upgrades.time[0],
+        player.upgrades.time[1], //This will almost certainly fail when we get more advanced systems of stage development.
+        player.upgrades.time[2],
+    ]
+    let ret
+    for (let i in STAGESREQ) {
+        if (STAGESREQ[i]) ret = parseInt(i)
+    }
+    if (stage === undefined) return ret
+    else return (ret >= stage)
+
+}
+//looks and color.
 function updateUpgs() {
     let cur;
     for (let i=0; i<3; i++) {
@@ -160,21 +191,5 @@ function updateUpgs() {
                 btn.className = `upgrade ${cur}`;
             }
         }
-    }
-}
-
-const COLORMAX = [10, 10, 10]; //time, space, matter. They might all be 10...?
-const CHROMOS = [
-    [200, 100, 50, 240, 100, 20],
-    [270, 50, 60, 270, 100, 20],
-]; //Time, Space, Matter. SpaceTime = Space & Time. 
-function color() {
-    let cur, potency, arr, vars = document.querySelector(':root');
-    for (let i=0; i<2; i++) {
-        cur = ["time","space"][i];
-        potency = Math.max(Math.min(player[cur].add(1).log(10) / COLORMAX[i], 1),0);
-        arr = CHROMOS[i]
-        vars.style.setProperty(`--${cur}`, `hsl(${arr[0]},${Math.floor(arr[1] * potency)}%,${arr[2]}%)`);
-        vars.style.setProperty(`--${cur}Back`, `hsl(${arr[3]},${Math.floor(arr[4] * potency)}%,${arr[5]}%)`);
     }
 }

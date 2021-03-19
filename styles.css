@@ -14,11 +14,13 @@
 
     --time: hsl(270, 50%, 60%);
     --timeBack: hsl(270, 100%, 20%);
+
+    --matter: 0;
 }
 
 * { 
     color: white;
-    background-color: black;
+    background-color: none;
     box-sizing: border-box;
     text-align: center;
     font-family: monospace;
@@ -26,7 +28,19 @@
 }
 body {
     overflow-x: auto;
-    max-width: 100%
+    max-width: 100%;
+    padding: 0px;
+}
+
+canvas {
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    z-index: -100
+}
+
+button {
+    background-color: black;
 }
 
 .tab {
@@ -136,7 +150,7 @@ body {
     animation: PBTrans 20s infinite ease-in-out, PBTransSoft 20s infinite ease-in-out; /* aww piss off, multiple animations */
 }
 .spaceTime button.upgBought {
-    animation: PBTrans 20s infinite ease-in-out, PBTransBought 20s infinite ease-in-out; /* aww piss off, multiple animations */
+    animation: PBTrans 20s infinite ease-in-out, PBTransBought 20s infinite ease-in-out;
 }
 
 @keyframes PBTrans {
@@ -152,15 +166,13 @@ body {
     50% { background-color: var(--space); color: var(--timeBack); }
 }
 
-
-
 .matter {
-    border-color: rgb(0, 128, 0);
-    color: rgb(0, 192, 0);
+    border-color: hsl(120, 100%, 25%);
+    color: hsl(120, 100%, 38%);
     animation: fadeIn 0.2s linear
 }
 .matter * {
-    color:rgb(0, 192, 0);
+    color:hsl(120, 100%, 38%);
 }
 
 
