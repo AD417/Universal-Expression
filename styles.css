@@ -1,7 +1,7 @@
 /* Game mechanics colors, and their CSS equivalents:
  * Time:       Purple
  * Space:      Dodger blue
- * SpaceTime:  fade between blue and cyan
+ * SpaceTime:  see above
  * Matter:     Green, maybe lime
  * Energy:     Orange. May be too bright. 
  * Light:      Yellow. Almost certainly too bright
@@ -26,17 +26,22 @@
     font-family: monospace;
     outline: none;
 }
+
+p {
+    text-shadow: 0 0 10px black ;
+}
 body {
     overflow-x: auto;
     max-width: 100%;
     padding: 0px;
 }
 
-canvas {
+#canvas {
     position: fixed;
     left: 0%;
     top: 0%;
-    z-index: -100
+    z-index: -100;
+    overflow: hidden;
 }
 
 button {

@@ -21,7 +21,6 @@ let basePlayer = {
 
     spaceTime: D(0),
     dSpaceTime: D(0),
-    STTimePenalty: D(0),
     STD: D(0), //SpaceTime Difference. When upgrades deduct from SpaceTime. 
 
     space: D(0),
