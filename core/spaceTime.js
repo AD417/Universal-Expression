@@ -1,13 +1,13 @@
 function changeTime(diff) {
-    player.dTime = D(player.upgrades.spaceTime[1] ? 2.5 : 2).pow(player.timeBoosts);
+    player.dTime = D(2).pow(player.timeBoosts);
     let dt = player.dTime
     if (player.upgrades.space[0]) dt = dt.times(player.space.add(10).log(10))
     player.time = player.time.add(dt.times(diff / 1000));
 
 
     if (player.upgrades.space[2]) {
-        player.timeCost = D(10).pow(D(1.25).pow(player.timeBoosts)).div(
-            Decimal.min(Decimal.pow(9/8, player.spaceGens[0].add(player.spaceGens[1]).add(player.spaceGens[2])), 1e50) //This will break when dimensions start compounding. 
+        player.timeCost = D(10).times(Decimal.pow(2.5, player.timeBoosts)).div(
+            1 //Decimal.min(Decimal.pow(9/8, player.spaceGens[0].add(player.spaceGens[1]).add(player.spaceGens[2])), 1e50) //This will break when dimensions start compounding. 
         );
     }
     getEl("time").innerHTML = display(player.time);
@@ -46,7 +46,7 @@ function changeSpaceTime(diff) { //TODO: make this function better.
     let dSpaceTime = player.dTime.times(tmp.dSpace).sqrt()
     player.spaceTime = player.spaceTime.add(dSpaceTime.div(1000 / diff))
 
-    getEl("spaceTime").innerHTML = display(player.spaceTime);
+    getEl("spaceTime").innerHTML = display(player.spaceTime.minus(player.STD));
     getEl("spaceTimePerSecond").innerHTML = display(dSpaceTime);
 }
 
@@ -56,7 +56,7 @@ function upgTime() {
     if (player.time.lt(player.timeCost)) return;
     player.timeBoosts++;
     player.dTime = D(2).pow(player.timeBoosts);
-    player.timeCost = D(10).pow(D(1.25).pow(player.timeBoosts));
+    player.timeCost = D(10).times(Decimal.pow(2.5, player.timeBoosts));
 }
 
 function buySpaceDim(dim) {
@@ -69,7 +69,7 @@ function buySpaceDim(dim) {
 const STCOSTS = [
     [100, 1e5, 1e9],
     [100, 1e4, 3e6],
-    [1e3, 1e6, 1e9],
+    [1e3, 1e6, 1e8],
 ]
 
 function getUpgrade(type, num) {
