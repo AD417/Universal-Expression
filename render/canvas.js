@@ -1,8 +1,8 @@
 let c = document.getElementById("canvas");
 let ctx = c.getContext("2d");
 let render = {
-    width: window.innerWidth-4, 
-    height: window.innerHeight-4, 
+    width: window.innerWidth, 
+    height: window.innerHeight, 
 
     lines: [],
 };
@@ -17,8 +17,8 @@ function setUpCanvas() {
 }
 
 function draw() {
-    render.width = window.innerWidth-4
-    render.height = window.innerHeight-4
+    render.width = window.innerWidth
+    render.height = window.innerHeight
     c.setAttribute("width", render.width)
     c.setAttribute("height", render.height)
     let i;

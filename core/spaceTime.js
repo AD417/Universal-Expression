@@ -69,7 +69,7 @@ function buySpaceDim(dim) {
 const STCOSTS = [
     [100, 1e5, 1e9],
     [100, 1e4, 3e6],
-    [1e3, 1e6, 1e8],
+    [1e3, NaN, 1e8],
 ]
 
 function getUpgrade(type, num) {

@@ -9,7 +9,8 @@ function formatNumber(value, percision = 3, eMax = 5, eMin = -3,) {
         }
         return m + "e" + value.e
     } else {
-        return Math.round(value.m * 10 ** value.e) 
+        let ret = Math.round(value.m * 10 ** value.e) //value without commas
+        return ret.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") //value with commas. tf is this.
     }
 }
 
