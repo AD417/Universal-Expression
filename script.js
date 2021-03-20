@@ -26,7 +26,7 @@ let basePlayer = {
     space: D(0),
     totalSpace: D(0),
     spaceGens: [D(1), D(0), D(0),],
-    spaceGenCost: [D(10), D(1000), D(1e10),],
+    spaceGenCost: [D(10), D(1000), D(1e6),],
 
     matter: D(0),
 

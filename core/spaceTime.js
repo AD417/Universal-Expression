@@ -1,11 +1,13 @@
 function changeTime(diff) {
+    player.dTime = D(player.upgrades.spaceTime[1] ? 2.5 : 2).pow(player.timeBoosts);
     let dt = player.dTime
     if (player.upgrades.space[0]) dt = dt.times(player.space.add(10).log(10))
     player.time = player.time.add(dt.times(diff / 1000));
 
+
     if (player.upgrades.space[2]) {
         player.timeCost = D(10).pow(D(1.25).pow(player.timeBoosts)).div(
-            Decimal.min(Decimal.pow(1.1, player.spaceGens[0].add(player.spaceGens[1]).add(player.spaceGens[2])), 1e50) //This will break when dimensions start compounding. 
+            Decimal.min(Decimal.pow(9/8, player.spaceGens[0].add(player.spaceGens[1]).add(player.spaceGens[2])), 1e50) //This will break when dimensions start compounding. 
         );
     }
     getEl("time").innerHTML = display(player.time);
@@ -15,14 +17,19 @@ function changeTime(diff) {
 
 function changeSpace(diff) { 
     if (!player.upgrades.time[0]) return;
-    let Sdiff = player.dTime.div(8);
+    let Sdiff;
+    if (player.upgrades.spaceTime[0]) {
+        Sdiff = player.dTime.pow(0.6);
+    } else {
+        Sdiff = D(1)
+    }
     tmp.dSpace = player.spaceGens[0].times(Sdiff);
     if (1 === 1) { // Todo: add an upgrade or something.
-        tmp.dSpace = tmp.dSpace.add(player.spaceGens[1].times(Sdiff).times(10).times(player.upgrades.space[1] ? player.time.log(10) : 1));
-        tmp.dSpace = tmp.dSpace.add(player.spaceGens[2].times(Sdiff).times(100));
+        tmp.dSpace = tmp.dSpace.add(player.spaceGens[1].times(Sdiff).times(10).times(player.upgrades.space[1] ? player.time.log(8) : 1));
+        tmp.dSpace = tmp.dSpace.add(player.spaceGens[2].times(Sdiff).times(1000));
     } else {
-        player.spaceGens[0] = player.spaceGens[0].add(player.spaceGens[1].times(Sdiff.div(10000)));
-        player.spaceGens[1] = player.spaceGens[1].add(player.spaceGens[2].times(Sdiff.div(100000)));
+        player.spaceGens[0] = player.spaceGens[0].add(player.spaceGens[1].times(Sdiff.div(10000)));  //10s per.
+        player.spaceGens[1] = player.spaceGens[1].add(player.spaceGens[2].times(Sdiff.div(100000))); //100s per. 
     }
     player.space = player.space.add(tmp.dSpace.times(diff / 1000));
     player.totalSpace = player.totalSpace.add(tmp.dSpace.times(diff / 1000));
@@ -60,9 +67,9 @@ function buySpaceDim(dim) {
 }
 
 const STCOSTS = [
-    [100, 1e5, 1e20],
-    [100, 1e4, 1e8],
-    [10000, 1e20, 1e50],
+    [100, 1e5, 1e9],
+    [100, 1e4, 3e6],
+    [1e3, 1e6, 1e9],
 ]
 
 function getUpgrade(type, num) {
@@ -80,5 +87,5 @@ function getUpgrade(type, num) {
             break;
     }
     player.upgrades[currency][num] = true;
-    if (currency == "time" && num == 2) player.STTimePenalty = player.time
+    if (player.upgrades.time[2]) window.alert("yay you did it! thats all for now. Check back later when we add more content.")
 }
