@@ -7,19 +7,19 @@ function changeTime(diff) {
 
     if (player.upgrades.space[2]) {
         player.timeCost = D(10).times(Decimal.pow(2.5, player.timeBoosts)).div(
-            1 //Decimal.min(Decimal.pow(9/8, player.spaceGens[0].add(player.spaceGens[1]).add(player.spaceGens[2])), 1e50) //This will break when dimensions start compounding. 
+            1 //Decimal.min(Decimal.pow(9/8, player.spaceGens[0].add(player.spaceGens[1]).add(player.spaceGens[2])), 1e50) //This is broken.
         );
     }
     getEl("time").innerHTML = display(player.time);
     getEl("timePerSecond").innerHTML = display(dt); 
-    getEl("timeCost").innerHTML = display(player.timeCost); //Does this need to be updated every frame? Eventually, probably.
+    getEl("timeCost").innerHTML = display(player.timeCost); 
 }
 
 function changeSpace(diff) { 
     if (!player.upgrades.time[0]) return;
     let Sdiff;
     if (player.upgrades.spaceTime[0]) {
-        Sdiff = player.dTime.pow(0.6);
+        Sdiff = player.dTime.pow(0.4);
     } else {
         Sdiff = D(1)
     }

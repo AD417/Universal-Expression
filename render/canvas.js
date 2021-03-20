@@ -17,6 +17,8 @@ function setUpCanvas() {
 }
 
 function draw() {
+    render.width = window.innerWidth-4
+    render.height = window.innerHeight-4
     c.setAttribute("width", render.width)
     c.setAttribute("height", render.height)
     let i;
