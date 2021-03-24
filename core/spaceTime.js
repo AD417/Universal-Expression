@@ -42,7 +42,7 @@ function changeSpace(diff) {
 }
 
 function changeSpaceTime(diff) { //TODO: make this function better. 
-    if (!player.upgrades.time[1]) return;
+    if (!pastStage(2)) return;
     let dSpaceTime = player.dTime.times(tmp.dSpace).sqrt()
     player.spaceTime = player.spaceTime.add(dSpaceTime.div(1000 / diff))
 
@@ -63,29 +63,38 @@ function buySpaceDim(dim) {
     if (player.space.lt(player.spaceGenCost[dim])) return
     player.space = player.space.minus(player.spaceGenCost[dim])
     player.spaceGens[dim] = player.spaceGens[dim].add(1)
-    player.spaceGenCost[dim] = player.spaceGenCost[dim].times(1.4 * (dim+1))
+    player.spaceGenCost[dim] = player.spaceGenCost[dim].times(1 + (0.2 * dim + 0.2))
 }
 
-const STCOSTS = [
-    [100, 1e5, 1e9],
-    [100, 1e4, 3e6],
-    [1e3, NaN, 1e8],
-]
+const STCOSTS = { //yeah, this isnt constant, but I dunno a better implementation right now. 
+    time: [100, 1e5, 1e9],
+    space: [100, 1e4, Infinity],
+    spaceTime: [1e3, Infinity, 1e8],
+}
+
+function getTimeUpgrade(num) {
+    upgs = player.upgrades.time
+    costs = STCOSTS.time
+    if (upgs[num] || player.time.lt(costs[num])) return
+    upgs[num] = true
+    player.time.sub(costs[num])
+    UpdateGameStage()
+}
 
 function getUpgrade(type, num) {
-    let currency = ["time", "space", "spaceTime"][type];
-    if (player[currency].lt(STCOSTS[type][num]) || player.upgrades[currency][num]) return;
+    let cur = ["time", "space", "spaceTime"][type];
+    if (player[cur].lt(STCOSTS[cur][num]) || player.upgrades[cur][num]) return;
     switch (type) {
         case 2: 
-            player.STD = player.STD.add(STCOSTS[type][num]) //This may be a problem. 
+            player.STD = player.STD.add(STCOSTS[cur][num]) //This may be a problem. 
             break
         case 1: 
-            player.space = player.space.sub(STCOSTS[type][num]);
+            player.space = player.space.sub(STCOSTS[cur][num]);
             break;
         case 0: 
         default:
             break;
     }
-    player.upgrades[currency][num] = true;
+    player.upgrades[cur][num] = true;
     if (player.upgrades.time[2]) window.alert("yay you did it! thats all for now. Check back later when we add more content.")
 }

@@ -2,51 +2,62 @@
 <html>
 <body style="padding: 0px; margin: 0px">
 
-<canvas id="canvas"style="margin: 0px; padding: 0px"></canvas> <!--window.innerWidth -->
+<canvas id="canvas" style="overflow: hidden; margin: 0px; padding: 0px; "></canvas> <!--window.innerWidth -->
 
 <script>
 let c = document.getElementById("canvas");
 let ctx = c.getContext("2d");
 let render = {
-    width: window.innerWidth-4, 
-    height: window.innerHeight-4, 
+    width: window.innerWidth, 
+    height: window.innerHeight, 
 
-    lines: [],
+    data: {
+        lines: [],
+        dots: []
+    },
 };
+const SHELLS = [2, 8, 8, 18, 18, 32, 32]
+const TAU = Math.PI * 2
 render.max = Math.max(render.width, render.height);
 c.setAttribute("width", render.width)
 c.setAttribute("height", render.height)
 ctx.fillStyle = "black";
-for (let i=0, j=1; j < render.max; i++) {
-    render.lines[i] = j
-    j *= 1.25
+let data = render.data;
+for (let i=0, j=150; i < 3; i++) {
+    data.lines[i] = j
+    data.dots[i] = Math.random() * 2 * Math.PI;
+    j *= 1.5
 }
+console.log(render.data.lines)
 delete i;
 delete j;
+let frame = 0
 function draw() {
     let i;
-    for (i in render.lines) {
-        render.lines[i] *= (1.2 ** 0.008)
-        if (render.lines[i] > render.max / 2 + 10) {
-            render.lines.pop()
-            render.lines.unshift(render.lines[0] / 1.25)
-        }
-    }
     ctx.fillRect(0,0,c.width,c.height);
-    ctx.lineWidth = "1";
-    for (i in render.lines) {
-        let cf = (1 / 1) // replace with code that governs brightness of elements
-        ctx.strokeStyle = `rgb(${Math.min(render.lines[i] * cf, 127)},${Math.min(render.lines[i] * cf, 127)},${Math.min(render.lines[i] * cf, 127)})`;
+    for (i in data.lines) {
+        i = parseInt(i)
+        frame += 0.002
+        let cf = (1 / 2) // replace with code that governs brightness of elements
+        //ctx.strokeStyle = `rgb(${Math.min(render.data.lines[i] * cf, 127)},${Math.min(render.data.lines[i] * cf, 127)},${Math.min(render.data.lines[i] * cf, 127)})`;
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = "4";
         ctx.beginPath();
-        ctx.moveTo(0, render.lines[i] + c.height/2);
-        ctx.lineTo(c.width, render.lines[i] + c.height/2);
-        ctx.moveTo(0, -render.lines[i] + c.height/2);
-        ctx.lineTo(c.width, -render.lines[i] + c.height/2);
-        ctx.moveTo(render.lines[i] + c.width/2, 0);
-        ctx.lineTo(render.lines[i] + c.width/2, c.height);
-        ctx.moveTo(-render.lines[i] + c.width/2, 0);
-        ctx.lineTo(-render.lines[i] + c.width/2, c.height);
+        //ctx.moveTo(0, render.data[i] + c.height/2);
+        ctx.arc(render.width / 2,render.height / 2,data.lines[i],0,TAU)
         ctx.stroke();
+        ctx.lineWidth = "20";
+        ctx.strokeStyle = "grey";
+        //console.log(Math.cbrt(i+1000))
+        for (let j=0; j<SHELLS[i]; j++) {
+            ctx.beginPath();
+            ctx.arc(
+                Math.sin(data.dots[i] + frame * Math.sqrt(i+1) + (TAU * j / SHELLS[i]))*data.lines[i] + render.width/2,
+                Math.cos(data.dots[i] + frame * Math.sqrt(i+1) + (TAU * j / SHELLS[i]))*data.lines[i] + render.height/2,
+                10, 0, TAU
+            )
+            ctx.stroke();
+        }
     }
 }
 setInterval(draw, 20);

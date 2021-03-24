@@ -10,7 +10,7 @@ function formatNumber(value, percision = 3, eMax = 5, eMin = -3,) {
         return m + "e" + value.e
     } else {
         let ret = Math.round(value.m * 10 ** value.e) //value without commas
-        return ret.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") //value with commas. tf is this.
+        return ret.toLocaleString() //    .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") //value with commas. tf is this.
     }
 }
 

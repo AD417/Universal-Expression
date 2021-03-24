@@ -47,6 +47,7 @@ function tab(tabID) {
     }
   
     getEl([null, "Main", "Matter", "Options", "Statistics"][tabID]).style.display = "block";
+    setUpCanvas(tabID)
 }
 
 function load() {
@@ -72,7 +73,6 @@ function setup() {
     for (let i; i < 3; i++) {
         getEl("spaceDim"+i).innerHTML = 0
     }
-    setUpCanvas()
 }
 
 function check(val, base) {
@@ -159,32 +159,31 @@ function updateStatistics() {
     getEl("playtime").innerHTML = display(Math.floor((player.lastTick - player.firstTick) / 1000));
 }
 
-function checkStage(stage) {
-    const STAGESREQ = [
-        player.upgrades.time[0],
-        player.upgrades.time[1], //This will almost certainly fail when we get more advanced systems of stage development.
-        player.upgrades.time[2],
+function pastStage(stage) {
+    stage--
+    const STAGESREQ = [ //This will almost certainly fail when we get more advanced systems of stage development.
+        player.upgrades.time[0], //First time upgrade: unlock space and space stuff
+        player.upgrades.time[1], //Second time upgrade: unlock Spacetime
+        player.upgrades.time[2], //Third time upgrade: unlock Matter
     ]
-    let ret
+    let ret = 0
     for (let i in STAGESREQ) {
-        if (STAGESREQ[i]) ret = parseInt(i)
+        if (STAGESREQ[i]) ret = parseInt(i);
     }
-    if (stage === undefined) return ret
-    else return (ret >= stage)
+    if (stage === undefined) return ret;
+    else return (ret >= stage);
 
 }
 //looks and color.
 function updateUpgs() {
     let cur;
-    for (let i=0; i<3; i++) {
-        cur = ["time", "space", "spaceTime"][i];
-        let len = player.upgrades[cur].length,
-        upgs = STCOSTS[i]; //TODO: come up with better logic for this when I make matter.
-        for (let j=0; j<len; j++) { //we are assuming that STCOSTS.length === player.upgrades[cur].length. it should be. 
-            btn = getEl(cur + j);
-            if (player.upgrades[cur][j]) {
+    for (cur in STCOSTS) {
+        let len = player.upgrades[cur].length;
+        for (let i in STCOSTS[cur]) { //we are assuming that STCOSTS.length === player.upgrades[cur].length. it should be. 
+            btn = getEl(cur + i);
+            if (player.upgrades[cur][i]) {
                 btn.className = `upgrade ${cur} upgBought`;
-            } else if (player[cur].gte(upgs[j])) {
+            } else if (player[cur].gte(STCOSTS[cur][i])) {
                 btn.className = `upgrade ${cur} upgBuyable`;
             } else {
                 btn.className = `upgrade ${cur}`;
