@@ -77,11 +77,25 @@ function getTimeUpgrade(num) {
     costs = STCOSTS.time
     if (upgs[num] || player.time.lt(costs[num])) return
     upgs[num] = true
-    player.time.sub(costs[num])
-    UpdateGameStage()
+    updateGameStage()
 }
 
-function getUpgrade(type, num) {
+function getSpaceUpgrade(num) {
+    upgs = player.upgrades.space
+    costs = STCOSTS.space
+    if (upgs[num] || player.space.lt(costs[num])) return
+    upgs[num] = true
+    player.space.sub(costs[num])
+}
+
+function getSTUpgrade(num) {
+    upgs = player.upgrades.spaceTime
+    costs = STCOSTS.spaceTime
+    if (upgs[num] || player.spaceTime.minus(player.STD).lt(costs[num])) return
+    upgs[num] = true
+    player.STD.add(costs[num])
+}
+/* function getUpgrade(type, num) {
     let cur = ["time", "space", "spaceTime"][type];
     if (player[cur].lt(STCOSTS[cur][num]) || player.upgrades[cur][num]) return;
     switch (type) {
@@ -96,5 +110,4 @@ function getUpgrade(type, num) {
             break;
     }
     player.upgrades[cur][num] = true;
-    if (player.upgrades.time[2]) window.alert("yay you did it! thats all for now. Check back later when we add more content.")
-}
+}  Absolutely cursed previous function stuff */

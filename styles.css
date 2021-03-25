@@ -73,6 +73,7 @@ button {
     min-width: 33rem;
     height: 80%;
     flex-direction: column;
+    vertical-align: top;
 }
 @keyframes fadeIn {
     0% {
@@ -134,8 +135,12 @@ button {
     background-color: var(--space);
     color: var(--spaceBack)
 }
-.spacetable * td {
+.spacetable {
     padding: 1rem 0;
+    table-layout: fixed
+}
+.spacetable * {
+    width: 33%;
 }
 .tableUpg {
     width: 90%;

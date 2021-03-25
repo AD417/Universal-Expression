@@ -46,7 +46,7 @@ function tab(tabID) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
   
-    getEl([null, "Main", "Matter", "Options", "Statistics"][tabID]).style.display = "block";
+    getEl([null, "Main", "Matter", "Options", "Statistics", "DevLog"][tabID]).style.display = "block";
     setUpCanvas(tabID)
 }
 
@@ -67,6 +67,7 @@ function load() {
 }
 
 function setup() {
+    updateGameStage()
     getEl("time").innerHTML = 0
     getEl("space").innerHTML = 0
     getEl("spaceTime").innerHTML = 0
@@ -173,6 +174,47 @@ function pastStage(stage) {
     if (stage === undefined) return ret;
     else return (ret >= stage);
 
+}
+
+function updateGameStage() {
+    const stageTrig = [
+        player.upgrades.time[0],
+        player.upgrades.time[1],
+        player.upgrades.time[2],
+    ]
+    const stageGo = [
+        () => {
+            getEl("spaceTile").style.display = "inline-block";
+            el = getEl("spaceTimeTile").style
+            el.display = "inline-block"
+            el.visibility = "hidden"
+        },
+        () => {
+            getEl("spaceTimeTile").style.visibility = "visible"
+        },
+        () => {
+            getEl("matterTab").style.display = "inline-block"
+        }
+    ]
+    const stageDont = [
+        () => {
+            getEl("spaceTile").style.display = "none";
+            getEl("spaceTimeTile").style.display = "none"
+        },
+        () => {
+            getEl("spaceTimeTile").style.visibility = "hidden"
+        },
+        () => {
+            getEl("matterTab").style.display = "none"
+        }
+    ]
+    for (i in stageTrig) {
+        if (stageTrig[i]) {
+            stageGo[i]()
+        } else {
+            stageDont[i]()
+        }
+    }
 }
 //looks and color.
 function updateUpgs() {
