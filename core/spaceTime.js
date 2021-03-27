@@ -2,11 +2,12 @@ function changeTime(diff) {
     player.dTime = D(2).pow(player.timeBoosts);
     let dt = player.dTime
     if (player.upgrades.space[0]) dt = dt.times(player.space.add(10).log(10))
+    if (player.upgrades.spaceTime[1]) dt = dt.times(Math.sqrt(player.spaceTime.add(10).log(10)));
+
     player.time = player.time.add(dt.times(diff / 1000));
 
-
     if (player.upgrades.space[2]) {
-        player.timeCost = D(10).times(Decimal.pow(2.5, player.timeBoosts)).div(
+        player.timeCost = D(10).times(Decimal.pow(3, player.timeBoosts)).div(
             1 //Decimal.min(Decimal.pow(9/8, player.spaceGens[0].add(player.spaceGens[1]).add(player.spaceGens[2])), 1e50) //This is broken.
         );
     }
@@ -21,7 +22,7 @@ function changeSpace(diff) {
     if (player.upgrades.spaceTime[0]) {
         Sdiff = player.dTime.pow(0.4);
     } else {
-        Sdiff = D(1)
+        Sdiff = D(1);
     }
     tmp.dSpace = player.spaceGens[0].times(Sdiff);
     if (1 === 1) { // Todo: add an upgrade or something.
@@ -31,6 +32,8 @@ function changeSpace(diff) {
         player.spaceGens[0] = player.spaceGens[0].add(player.spaceGens[1].times(Sdiff.div(10000)));  //10s per.
         player.spaceGens[1] = player.spaceGens[1].add(player.spaceGens[2].times(Sdiff.div(100000))); //100s per. 
     }
+    if (player.upgrades.spaceTime[1]) tmp.dSpace = tmp.dSpace.times(Math.sqrt(player.spaceTime.add(10).log(10)));
+
     player.space = player.space.add(tmp.dSpace.times(diff / 1000));
     player.totalSpace = player.totalSpace.add(tmp.dSpace.times(diff / 1000));
     getEl("space").innerHTML = display(player.space);
@@ -56,7 +59,7 @@ function upgTime() {
     if (player.time.lt(player.timeCost)) return;
     player.timeBoosts++;
     player.dTime = D(2).pow(player.timeBoosts);
-    player.timeCost = D(10).times(Decimal.pow(2.5, player.timeBoosts));
+    player.timeCost = D(10).times(Decimal.pow(3, player.timeBoosts));
 }
 
 function buySpaceDim(dim) {
@@ -69,7 +72,7 @@ function buySpaceDim(dim) {
 const STCOSTS = { //yeah, this isnt constant, but I dunno a better implementation right now. 
     time: [100, 1e5, 1e9],
     space: [100, 1e4, Infinity],
-    spaceTime: [1e3, Infinity, 1e8],
+    spaceTime: [1e3, 1e6, 1e10],
 }
 
 function getTimeUpgrade(num) {
